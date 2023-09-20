@@ -67,7 +67,7 @@ def main():
                         continue
                 continue
 
-        print(b)
+        #print(b)
 
         bet_amount = input("How much would you like to bet? £")
 
@@ -76,7 +76,7 @@ def main():
             bet_amount = int(bet_amount)
             if len(b) > 1:
                 t_bet_amount = bet_amount * len(b)
-                print("t_bet_amount", t_bet_amount)
+                #print("t_bet_amount", t_bet_amount)
 
             elif bet_amount * len(b) > plr_bal:
                 print("////", bet_amount)
@@ -102,19 +102,21 @@ def main():
         print()
         print(f"You are betting on, {b}")
         for i in range(len(b)):
-
-            if spin_num == b[i]:
-                print()
-                print(f"You won on: {spin_num}! ")
-                plr_bal += bet_amount*36
-                print()
-                break
-            elif b != spin_num:
+            print(b[i])
+            if int(b[i]) != spin_num:
                 num_lost = b[i]
                 print()
                 print(f"You lost on {num_lost}! The winning number was: {spin_num}. ")
                 plr_bal -= bet_amount
                 print()
+                continue
+            elif int(b[i]) == spin_num:
+                print()
+                print(f"You won on: {spin_num}! ")
+                plr_bal += bet_amount*36
+                print()
+                continue
+
 
 
 
