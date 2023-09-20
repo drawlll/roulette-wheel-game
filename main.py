@@ -24,6 +24,7 @@ def start_game():
         else:
             print("Please enter a valid option.")
 
+
 def deposit():
     while True:
         print()
@@ -37,7 +38,7 @@ def deposit():
         else:
             print("Please enter a number.")
     global bal
-    bal = amount
+    bal += amount
     main()
     return amount
 
@@ -45,29 +46,39 @@ def deposit():
 def main():
     global bal
     plr_bal = bal
-    while True:
+    print()
+    inp = input("Would you like to spin, or deposit money? (Press enter to spin, or type 'd' to deposit. "
+                "\n")
+    if inp == "":
+        pass
+    elif inp.lower() == "d":
         print()
+        deposit()
+    else:
+        print("Please enter a valid option.")
+
+    while True:
         print(f"Your current balance is: £{plr_bal}")
         num_bet = input("What numbers' would you like to bet on (separated with just one space ' ')? "
                         "\n")
         print()
         b = list(num_bet.split(' '))
         for i in range(len(b)):
-            if not b[i].isdecimal():
+            if re.match('\d+', b[i]):
+                if b[i].isdecimal() and int(b[i]) < 0 or int(b[i]) > 36:
+                    invalid_num = b[i]
+                    print(f"{invalid_num} is not a valid number. Please choose between 0, and 36.")
+                    main()
+                else:
+                    continue
+            else:
                 print()
-                print("//// Invalid input. Please type only numbers.")
+                invalid_num = b[i]
+                print(f"//// '{invalid_num}' is not a valid number. Please choose between 0, and 36.")
                 print()
                 main()
 
-            elif b[i].isdecimal():
-                for index, val in enumerate(b):
-                    if int(val) < 0 or int(val) > 36:
-                        invalid_num = val
-                        print(f"{invalid_num} is not a valid number. Please choose between 0, and 36.")
-                        continue
-                continue
-
-        #print(b)
+        print(b)
 
         bet_amount = input("How much would you like to bet? £")
 
@@ -76,7 +87,7 @@ def main():
             bet_amount = int(bet_amount)
             if len(b) > 1:
                 t_bet_amount = bet_amount * len(b)
-                #print("t_bet_amount", t_bet_amount)
+                # print("t_bet_amount", t_bet_amount)
 
             elif bet_amount * len(b) > plr_bal:
                 print("////", bet_amount)
@@ -99,23 +110,50 @@ def main():
             continue
 
         spin_num = random.randint(0, 36)
+        b_joined = "'" + "', '".join(b) + "'"
+        print(f"You are betting on: {b_joined}.")
+        time.sleep(.8)
         print()
-        print(f"You are betting on, {b}")
+        print(".")
+        time.sleep(0.5)
+        print("..")
+        time.sleep(0.5)
+        print("...")
+        time.sleep(.8)
+        plr_win = False
         for i in range(len(b)):
-            print(b[i])
+            time.sleep(0.5)
             if int(b[i]) != spin_num:
                 num_lost = b[i]
                 print()
-                print(f"You lost on {num_lost}! The winning number was: {spin_num}. ")
+                print(f"You lost on {num_lost}! ")
                 plr_bal -= bet_amount
-                print()
                 continue
             elif int(b[i]) == spin_num:
                 print()
                 print(f"You won on: {spin_num}! ")
-                plr_bal += bet_amount*36
-                print()
+                plr_bal += bet_amount * 36
+                plr_win = True
                 continue
+        time.sleep(0.5)
+        print()
+        amount_won = bet_amount * 36
+        if plr_win:
+            print(f"Nice! You won £{amount_won} on number {spin_num}.")
+        else:
+            print(f"Sorry! You didn't win anything this time, the winning number was: {spin_num}. ")
+        print()
+        inp = input("Would you like to spin again or go to the Main Menu (Press enter to spin or type 'm' to go to the Main Menu)? "
+                    "\n")
+
+        if inp == "":
+            print()
+            start_game()
+        elif inp.lower() == "m":
+            print()
+            break
+        else:
+            print("Please enter a valid option.")
 
 
 start_game()
