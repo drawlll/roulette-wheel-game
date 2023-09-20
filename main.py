@@ -118,7 +118,4 @@ def main():
                 continue
 
 
-
-
-
 start_game()
