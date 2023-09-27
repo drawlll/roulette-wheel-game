@@ -146,7 +146,6 @@ def main():
         inp = input("Would you like to spin again or go to the Main Menu (Press enter to spin or type 'm' to go to the Main Menu)? "
                     "\n")
 
-
         if inp == "":
             print()
             start_game()
