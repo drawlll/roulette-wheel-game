@@ -2,9 +2,9 @@ import random
 import re
 import time
 
-green = [0]
+'''green = [0]
 reds = [1, 3, 5, 7, 9, 12, 14, 16, 18, 19, 21, 23, 25, 27, 30, 32, 34, 36]
-blacks = [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35]
+blacks = [2, 4, 6, 8, 10, 11, 13, 15, 17, 20, 22, 24, 26, 28, 29, 31, 33, 35]'''
 
 bal = 0
 
@@ -19,6 +19,7 @@ def start_game():
         if start == "":
             deposit()
         elif start.lower() == "q":
+            print()
             print("Thanks for playing!")
             break
         else:
@@ -78,7 +79,7 @@ def main():
                 print()
                 main()
 
-        print(b)
+        #print(b)
 
         bet_amount = input("How much would you like to bet? £")
 
@@ -154,7 +155,6 @@ def main():
             break
         else:
             print("Please enter a valid option.")
-
 
 
 start_game()
